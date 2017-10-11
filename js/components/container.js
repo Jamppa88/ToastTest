@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import {
   View,
-  Button,
+  TouchableNativeFeedback,
   Text,
-  ToastAndroid
+  ToastAndroid,
+  StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { styles } from '../styles/styles';
 import * as actionCreators from '../actions/actions';
+
+
 
 
 // This could be done within the class
@@ -26,22 +29,40 @@ class Presentation extends Component {
     const navigate = this.props.navigation.navigate;
     return(
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          {number}
-        </Text>
-        <Button title="Increase"
-          onPress={this.props.Increment}
-        />
-        <Button title="Decrease"
-          onPress={this.props.Decrement} />
-        <Button title="Toast"
-          onPress={showToast.bind(this, number)} />
-        <Button title="Change screen"
-          onPress={() => navigate('Alt')} />
+        <View style={styles.textContainer}>
+          <Text style={{fontSize: 32}}>
+            {number}
+          </Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableNativeFeedback 
+            onPress={this.props.Increment}
+            useForeground
+            background={TouchableNativeFeedback.Ripple('white')}
+          ><View><Text style={styles.button}>Increase</Text></View></TouchableNativeFeedback>
+          <TouchableNativeFeedback 
+            onPress={this.props.Decrement}
+            useForeground
+            background={TouchableNativeFeedback.Ripple('white')} 
+            ><View><Text style={styles.button}>Decrease</Text></View></TouchableNativeFeedback>
+          <TouchableNativeFeedback 
+            onPress={showToast.bind(this, number)} 
+            useForeground
+            background={TouchableNativeFeedback.Ripple('white')}
+           ><View><Text style={styles.button}>Toast</Text></View></TouchableNativeFeedback>
+          <TouchableNativeFeedback 
+            background={TouchableNativeFeedback.Ripple('white')}
+            onPress={() => navigate('Alt')} 
+            useForeground
+            ><View><Text style={styles.button}>Change Screen</Text></View></TouchableNativeFeedback>
+        </View>
+        
       </View>
     );
   }
 }
+
+
 
 const mapStateToProps = (state) => {
   console.log(state);
